@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="logo">
+    <img src="{{ bars }}" />
+    <img class="logo-pic" src="{{ logo }}" />
+  </div>
+
+  <div class="search">
+    <input [(ngModel)]="inputData"  type="text" placeholder="search" />
+    <img class="search-icon" src="{{ search }}" (click)="searchVidoes()"/>
+  </div>
+  <div class="features">
+    <img src="{{ video }}" alt="" />
+    <img src="{{ grid }}" alt="" />
+    <img src="{{ bell }}" alt="" />
+    <div class="email">O</div>
+  </div>
+</div>

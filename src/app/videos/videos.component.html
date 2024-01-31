@@ -1,0 +1,14 @@
+<app-header></app-header>
+<div class="body">
+  <app-side-bar></app-side-bar>
+  <div class="video">
+    <div class="container" [class.search]="search">
+      <app-video
+        *ngFor="let video of randomVideos"
+        [video]="video"
+        [search]="search"
+      ></app-video>
+    </div>
+  </div>
+</div>
+
