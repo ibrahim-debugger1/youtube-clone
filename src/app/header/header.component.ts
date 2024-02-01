@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { SharedDataService } from '../shared-data.service';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +9,11 @@ import { SharedDataService } from '../shared-data.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(private sharedDataService: SharedDataService) {}
+  constructor(
+    private sharedDataService: SharedDataService,
+    private location: Location,
+    private router:Router
+  ) {}
   ngOnInit() {}
   inputData: string = '';
   logo: string = '/assets/images/youtube-logo.jpg';
@@ -21,5 +27,9 @@ export class HeaderComponent {
     if (this.inputData != '') {
       this.sharedDataService.getSearchedVideos(this.inputData);
     }
+  }
+  Home() {
+    this.location.go('/');
+    window.location.reload();
   }
 }

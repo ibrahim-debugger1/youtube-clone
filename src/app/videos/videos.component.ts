@@ -26,6 +26,7 @@ export class VideosComponent {
         this.search = true;
         this.randomVideos = data;
         this.mergeData();
+        console.log(this.randomVideos)
       });
     });
   }

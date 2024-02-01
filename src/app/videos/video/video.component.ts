@@ -25,7 +25,6 @@ export class VideoComponent {
   }
 
   timePassedFromPublishedTime(publishedTime: string) {
-    console.log(this.video)
     let timestamp = new Date(publishedTime);
     let currentTime = new Date();
 

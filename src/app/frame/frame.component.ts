@@ -23,7 +23,6 @@ export class FrameComponent {
     const updatedIframeContent = this.data
       .replace(/width=".*?"/, `width="${width}"`)
       .replace(/height=".*?"/, `height="${height}"`);
-    console.log(updatedIframeContent)
     return this.sanitizer.bypassSecurityTrustHtml(updatedIframeContent);
   }
 }
