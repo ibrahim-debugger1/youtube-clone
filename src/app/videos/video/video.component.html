@@ -11,7 +11,7 @@
         <div class="views-number">
           {{ this.numberOfViewers | numberFormat }}
         </div>
-        <div class="posted-before">{{ this.passedTime }}</div>
+        <div class="posted-before">{{ this.video.publishedAt | dateDifference }}</div>
       </div>
     </div>
   </div>

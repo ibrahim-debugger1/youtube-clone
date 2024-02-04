@@ -3,7 +3,6 @@ import { videoInfo } from '../types/videoInfo';
 import { SharedDataService } from '../shared-data.service';
 import { viewCount } from '../types/viewCount';
 import { thumbNailUrl } from '../types/thumbNailUrl';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-videos',
@@ -14,6 +13,13 @@ export class VideosComponent {
   randomVideos: videoInfo[] = [];
   search: boolean = false;
   constructor(private sharedDataService: SharedDataService) {}
+
+  /**
+   * get the data from the service and merge them all in randomVideos variable
+   * and the data type is videoInfo[] and the data depends on random or searchedWord
+   *
+   * @returns {void} This function does not return a value directly.
+   **/
   ngOnInit() {
     this.sharedDataService.getRandomVideos().subscribe((data) => {
       this.search = false;
@@ -26,10 +32,15 @@ export class VideosComponent {
         this.search = true;
         this.randomVideos = data;
         this.mergeData();
-        console.log(this.randomVideos)
       });
     });
   }
+
+  /**
+   * get all needed data and set it in the randomVideo array
+   *
+   * @returns {void} This function does not return a value directly.
+   **/
   mergeData() {
     let listOfVideoIds = '';
     let listOfChannelIds = '';
@@ -66,9 +77,6 @@ export class VideosComponent {
             channelPic: viewInfo ? viewInfo.thumbNailUrl : '',
           };
         });
-
       });
-
-
   }
 }

@@ -1,17 +1,37 @@
 <div class="container">
   <div class="logo">
-    <img src="{{ bars }}" />
-    <img class="logo-pic" src="{{ logo }}" (click)="Home()"/>
+    <img src="{{ this.imagesSercive.bars }}" />
+    <img
+      class="logo-pic"
+      src="{{ this.imagesSercive.logo }}"
+      (click)="Home()"
+    />
   </div>
 
   <div class="search">
-    <input [(ngModel)]="inputData"  type="text" placeholder="search" />
-    <img class="search-icon" src="{{ search }}" (click)="searchVidoes()"/>
+    <div class="search-container">
+      <input
+        [(ngModel)]="inputData"
+        [formControl]="searchControl"
+        type="text"
+        placeholder="search"
+      />
+      <ul class="suggestion-list" *ngIf="searchedData.length > 0" [ngClass]="{'hide': hideList}">
+        <li *ngFor="let suggestion of searchedData" (click)="iframe(suggestion.videoId)">
+          {{ suggestion.videoTitle }}
+        </li>
+      </ul>
+    </div>
+    <img
+      class="search-icon"
+      src="{{ this.imagesSercive.search }}"
+      (click)="searchVidoes()"
+    />
   </div>
   <div class="features">
-    <img src="{{ video }}" alt="" />
-    <img src="{{ grid }}" alt="" />
-    <img src="{{ bell }}" alt="" />
+    <img src="{{ this.imagesSercive.video }}" alt="" />
+    <img src="{{ this.imagesSercive.grid }}" alt="" />
+    <img src="{{ this.imagesSercive.bell }}" alt="" />
     <div class="email">O</div>
   </div>
 </div>

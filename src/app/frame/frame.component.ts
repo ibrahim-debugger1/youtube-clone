@@ -8,7 +8,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./frame.component.scss'],
 })
 export class FrameComponent {
-  data: any;
+  data: string = '';
 
   constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer) {}
   ngOnInit() {
@@ -17,6 +17,15 @@ export class FrameComponent {
     });
   }
 
+  /**
+   * Sanitizes and updates the HTML content of an iframe with custom width and height values.
+   *
+   * This function replaces the 'width' and 'height' attributes in the provided HTML content
+   * with specified width and height values, ensuring the resulting HTML is safe for rendering.
+   *
+   * @returns {SafeHtml} A sanitized HTML content wrapped in the SafeHtml type.
+   *
+   **/
   getSanitizedHtml(): SafeHtml {
     let width = '900px';
     let height = '600px';

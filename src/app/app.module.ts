@@ -10,11 +10,11 @@ import { SharedDataService } from './shared-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { VideosComponent } from './videos/videos.component';
 import { NumberFormatPipe } from './number-format.pipe';
-import { FormsModule } from '@angular/forms';
 import { FrameComponent } from './frame/frame.component';
-import { RouterModule,Routes } from '@angular/router';
-
-
+import { RouterModule, Routes } from '@angular/router';
+import { DateDifferencePipe } from './date-difference.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,8 @@ import { RouterModule,Routes } from '@angular/router';
     VideoComponent,
     VideosComponent,
     NumberFormatPipe,
-    FrameComponent
+    FrameComponent,
+    DateDifferencePipe,
   ],
   imports: [
     BrowserModule,
@@ -32,9 +33,11 @@ import { RouterModule,Routes } from '@angular/router';
     HttpClientModule,
     FormsModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
   ],
   providers: [SharedDataService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

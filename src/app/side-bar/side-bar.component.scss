@@ -1,9 +1,11 @@
+@import "../../colors";
+
 .container {
-  border-right: 1px solid #ccc;
+  border-right: 1px solid $gray-light;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  height:90vh;
+  height: 90vh;
   margin-left: 15px;
   width: 15vw;
 }
@@ -19,7 +21,7 @@
 }
 
 .item-list:hover {
-  background-color: #ccc;
+  background-color: $gray-light;
   img {
     filter: invert(100%);
     -webkit-filter: invert(100%);
@@ -40,7 +42,7 @@ img {
 
 @media screen and (min-width: 768px) {
   .container {
-   width: 199px;
+    width: 199px;
   }
 }
 
