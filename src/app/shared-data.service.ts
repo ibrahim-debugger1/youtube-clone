@@ -16,7 +16,7 @@ export class SharedDataService {
     searchInfo: Observable<any>;
   }>();
   searchFilters$ = this.searchFilter.asObservable();
-  key = 'AIzaSyBn2VeNSh7xcLuEBWdEOZ-ORtwP_Sq2mgs';
+  key = 'AIzaSyBeF7wF_x5jQ68a8pioJvB3WCNhUihKUc4';
   randomVideos = `https://www.googleapis.com/youtube/v3/search?key=${this.key}&part=snippet&maxResults=20`;
   videoViewersCount = `https://www.googleapis.com/youtube/v3/videos?key=${this.key}&part=statistics,snippet,player&id=`;
   channelThumbNail = `https://www.googleapis.com/youtube/v3/channels?key=${this.key}&part=snippet&id=`;

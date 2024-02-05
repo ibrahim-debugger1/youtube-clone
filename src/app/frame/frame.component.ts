@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -7,13 +13,15 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   templateUrl: './frame.component.html',
   styleUrls: ['./frame.component.scss'],
 })
-export class FrameComponent {
-  data: string = '';
+export class FrameComponent implements OnInit {
+  data: any = '';
 
   constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer) {}
   ngOnInit() {
-    this.route.queryParams.subscribe((queryParams) => {
-      this.data = queryParams['url'];
+    this.route.paramMap.subscribe((params) => {
+      const state = history.state;
+      this.data = state?.data;
+      this.data = this.getSanitizedHtml();
     });
   }
 

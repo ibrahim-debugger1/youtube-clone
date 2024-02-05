@@ -28,8 +28,13 @@ export class VideoComponent {
    * @returns {void} This function does not return a value directly.
    **/
   openIframe() {
-    this.router.navigate(['/frame'], {
-      queryParams: { url: this.video.embedHtml },
-    });
+    const dataToSend = this.video.embedHtml;
+
+    const navigationExtras = {
+      state: {
+        data: dataToSend,
+      },
+    };
+    this.router.navigate([`/frame/${this.video.videoId}`], navigationExtras);
   }
 }

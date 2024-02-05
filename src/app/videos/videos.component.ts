@@ -3,7 +3,8 @@ import { videoInfo } from '../types/videoInfo';
 import { SharedDataService } from '../shared-data.service';
 import { viewCount } from '../types/viewCount';
 import { thumbNailUrl } from '../types/thumbNailUrl';
-
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-videos',
   templateUrl: './videos.component.html',
@@ -12,7 +13,11 @@ import { thumbNailUrl } from '../types/thumbNailUrl';
 export class VideosComponent {
   randomVideos: videoInfo[] = [];
   search: boolean = false;
-  constructor(private sharedDataService: SharedDataService) {}
+  constructor(
+    private sharedDataService: SharedDataService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
 
   /**
    * get the data from the service and merge them all in randomVideos variable
@@ -21,18 +26,32 @@ export class VideosComponent {
    * @returns {void} This function does not return a value directly.
    **/
   ngOnInit() {
+    if (!this.location.path()) {
+      this.getRandomVideos();
+    } else {
+      this.getSearchedVideos();
+    }
+  }
+
+  getRandomVideos(){
+    this.search = false;
     this.sharedDataService.getRandomVideos().subscribe((data) => {
-      this.search = false;
       this.randomVideos = data;
       this.mergeData();
     });
+  }
 
-    this.sharedDataService.searchFilters$.subscribe(({ searchInfo }) => {
-      searchInfo.subscribe((data) => {
-        this.search = true;
-        this.randomVideos = data;
-        this.mergeData();
-      });
+  getSearchedVideos(){
+    this.route.paramMap.subscribe((params) => {
+      this.sharedDataService
+        .getSearchedVideos(params.get('word') || '')
+        .subscribe((data) => {
+          if (params.get('word')) {
+            this.search = true;
+            this.randomVideos = data;
+            this.mergeData();
+          }
+        });
     });
   }
 

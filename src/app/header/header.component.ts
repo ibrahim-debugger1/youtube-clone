@@ -35,7 +35,7 @@ export class HeaderComponent {
    **/
   ngOnInit(): void {
     this.hideList = false;
-    this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe(() => {
+    this.searchControl.valueChanges.pipe(debounceTime(500)).subscribe(() => {
       this.onSearch();
     });
   }
@@ -49,6 +49,7 @@ export class HeaderComponent {
    **/
   onSearch() {
     if (this.inputData != '') {
+      this.hideList = false;
       this.sharedDataService
         .getSearchedVideos(this.inputData)
         .subscribe((data) => {
@@ -57,6 +58,8 @@ export class HeaderComponent {
             this.searchedData.push(data[i]);
           }
         });
+    } else {
+      this.hideList = true;
     }
   }
 
@@ -70,7 +73,7 @@ export class HeaderComponent {
   searchVidoes() {
     this.hideList = true;
     if (this.inputData != '') {
-      this.sharedDataService.getSearchedVideosAndSendData(this.inputData);
+      this.router.navigate([`/search=/${this.inputData}`]);
     }
   }
 
@@ -96,13 +99,18 @@ export class HeaderComponent {
    * @returns {void} This method does not return a value directly.
    **/
   iframe(videoId: string) {
+    this.hideList = false;
     this.sharedDataService
       .getVideoViewers(videoId)
       .subscribe((data: viewCount[]) => {
         this.hideList = true;
-        this.router.navigate(['/frame'], {
-          queryParams: { url: data[0].embedHtml },
-        });
+        const dataToSend = data[0].embedHtml;
+        const navigationExtras = {
+          state: {
+            data: dataToSend,
+          },
+        };
+        this.router.navigate([`/frame/${videoId}`], navigationExtras);
       });
   }
 }
