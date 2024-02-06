@@ -1,10 +1,24 @@
 import { Component } from '@angular/core';
-import { ImagesService } from '../images.service';
+
+import { IMAGE_PATHS } from '../image-paths';
+
 @Component({
   selector: 'app-side-bar',
   templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.scss']
+  styleUrls: ['./side-bar.component.scss'],
 })
 export class SideBarComponent {
-  constructor(public imagesService: ImagesService){}
+  IMAGE_PATHS = IMAGE_PATHS;
+  side_btn: (keyof typeof IMAGE_PATHS)[] = [
+    'home',
+    'trend',
+    'subscription',
+    'library',
+    'history',
+    'your_videos',
+    'watch_later',
+    'like',
+    'down_arrow'
+  ];
+  constructor() {}
 }

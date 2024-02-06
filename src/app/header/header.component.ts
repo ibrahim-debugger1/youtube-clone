@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { SharedDataService } from '../shared-data.service';
 import { Location } from '@angular/common';
-import { ImagesService } from '../images.service';
 import { FormControl } from '@angular/forms';
-import { debounceTime } from 'rxjs';
+import { Router } from '@angular/router';
+
+import { SharedDataService } from '../shared-data.service';
+import { IMAGE_PATHS } from '../image-paths';
+
 import { videoInfo } from '../types/videoInfo';
 import { viewCount } from '../types/viewCount';
-import { Router } from '@angular/router';
+
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -14,14 +17,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  inputData: string = '';
+  IMAGE_PATHS = IMAGE_PATHS;
+  searchQuery: string = '';
   searchControl = new FormControl();
   searchedData: videoInfo[] = [];
   hideList: boolean = false;
   constructor(
     private sharedDataService: SharedDataService,
     private location: Location,
-    public imagesSercive: ImagesService,
     public router: Router
   ) {}
 
@@ -48,10 +51,10 @@ export class HeaderComponent {
    * @returns {void} This method does not return a value directly.
    **/
   onSearch() {
-    if (this.inputData != '') {
+    if (this.searchQuery != '') {
       this.hideList = false;
       this.sharedDataService
-        .getSearchedVideos(this.inputData)
+        .getSearchedVideos(this.searchQuery)
         .subscribe((data) => {
           this.searchedData = [];
           for (let i = 0; i < 5; i++) {
@@ -72,8 +75,8 @@ export class HeaderComponent {
    **/
   searchVidoes() {
     this.hideList = true;
-    if (this.inputData != '') {
-      this.router.navigate([`/search=/${this.inputData}`]);
+    if (this.searchQuery != '') {
+      this.router.navigate(['/search'], {queryParams : { word: this.searchQuery}});
     }
   }
 
@@ -109,8 +112,9 @@ export class HeaderComponent {
           state: {
             data: dataToSend,
           },
+          queryParams: { id: videoId },
         };
-        this.router.navigate([`/frame/${videoId}`], navigationExtras);
+        this.router.navigate(['frame'], navigationExtras);
       });
   }
 }

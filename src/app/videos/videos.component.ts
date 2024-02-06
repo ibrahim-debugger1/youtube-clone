@@ -1,10 +1,13 @@
-import { Component, Input } from '@angular/core';
-import { videoInfo } from '../types/videoInfo';
-import { SharedDataService } from '../shared-data.service';
-import { viewCount } from '../types/viewCount';
-import { thumbNailUrl } from '../types/thumbNailUrl';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+
+import { videoInfo } from '../types/videoInfo';
+import { viewCount } from '../types/viewCount';
+import { thumbNailUrl } from '../types/thumbNailUrl';
+
+import { SharedDataService } from '../shared-data.service';
+
 @Component({
   selector: 'app-videos',
   templateUrl: './videos.component.html',
@@ -33,7 +36,7 @@ export class VideosComponent {
     }
   }
 
-  getRandomVideos(){
+  getRandomVideos() {
     this.search = false;
     this.sharedDataService.getRandomVideos().subscribe((data) => {
       this.randomVideos = data;
@@ -41,16 +44,14 @@ export class VideosComponent {
     });
   }
 
-  getSearchedVideos(){
-    this.route.paramMap.subscribe((params) => {
+  getSearchedVideos() {
+    this.route.queryParams.subscribe((params) => {
       this.sharedDataService
-        .getSearchedVideos(params.get('word') || '')
+        .getSearchedVideos(params['word'])
         .subscribe((data) => {
-          if (params.get('word')) {
-            this.search = true;
-            this.randomVideos = data;
-            this.mergeData();
-          }
+          this.search = true;
+          this.randomVideos = data;
+          this.mergeData();
         });
     });
   }

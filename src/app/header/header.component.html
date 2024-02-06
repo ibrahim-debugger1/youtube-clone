@@ -1,9 +1,9 @@
 <div class="container">
   <div class="logo">
-    <img src="{{ this.imagesSercive.bars }}" />
+    <img [src]="IMAGE_PATHS['bars']" />
     <img
       class="logo-pic"
-      src="{{ this.imagesSercive.logo }}"
+      [src]="IMAGE_PATHS['logo']"
       (click)="Home()"
     />
   </div>
@@ -11,7 +11,7 @@
   <div class="search">
     <div class="search-container">
       <input
-        [(ngModel)]="inputData"
+        [(ngModel)]="searchQuery"
         [formControl]="searchControl"
         type="text"
         placeholder="search"
@@ -24,14 +24,14 @@
     </div>
     <img
       class="search-icon"
-      src="{{ this.imagesSercive.search }}"
+      [src]="IMAGE_PATHS['search']"
       (click)="searchVidoes()"
     />
   </div>
   <div class="features">
-    <img src="{{ this.imagesSercive.video }}" alt="" />
-    <img src="{{ this.imagesSercive.grid }}" alt="" />
-    <img src="{{ this.imagesSercive.bell }}" alt="" />
+    <img [src]="IMAGE_PATHS['video']" alt="" />
+    <img [src]="IMAGE_PATHS['grid']" alt="" />
+    <img [src]="IMAGE_PATHS['bell']" alt="" />
     <div class="email">O</div>
   </div>
 </div>

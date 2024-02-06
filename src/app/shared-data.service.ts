@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, count } from 'rxjs';
-import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { videoInfo } from './types/videoInfo';
-import { map, tap } from 'rxjs/operators';
 import { viewCount } from './types/viewCount';
 import { thumbNailUrl } from './types/thumbNailUrl';
 
@@ -16,7 +17,7 @@ export class SharedDataService {
     searchInfo: Observable<any>;
   }>();
   searchFilters$ = this.searchFilter.asObservable();
-  key = 'AIzaSyBeF7wF_x5jQ68a8pioJvB3WCNhUihKUc4';
+  key = 'AIzaSyCqEDYKR7WjfRHDkwiHbM12ENwUqE82iEY';
   randomVideos = `https://www.googleapis.com/youtube/v3/search?key=${this.key}&part=snippet&maxResults=20`;
   videoViewersCount = `https://www.googleapis.com/youtube/v3/videos?key=${this.key}&part=statistics,snippet,player&id=`;
   channelThumbNail = `https://www.googleapis.com/youtube/v3/channels?key=${this.key}&part=snippet&id=`;

@@ -1,0 +1,17 @@
+export const IMAGE_PATHS = {
+  home: '/assets/images/house-solid.svg',
+  trend: '/assets/images/fire-solid.svg',
+  subscription: '/assets/images/video-playlist-icon.png',
+  library: '/assets/images/social_media_collection_youtube_video_media_icon_210475.png',
+  history: '/assets/images/clock-rotate-left-solid.svg',
+  your_videos: '/assets/images/tv-solid.svg',
+  watch_later: '/assets/images/clock-solid.svg',
+  like: '/assets/images/thumbs-up-regular.svg',
+  down_arrow: '/assets/images/angle-down-solid.svg',
+  logo:  '/assets/images/youtube-logo.jpg',
+  bars:  '/assets/images/bars-solid.svg',
+  search:  '/assets/images/magnifying-glass-solid.svg',
+  video:  '/assets/images/video-solid.svg',
+  grid:  '/assets/images/sort.png',
+  bell:  '/assets/images/bell-solid.svg',
+};

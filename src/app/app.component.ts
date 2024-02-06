@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import { SharedDataService } from './shared-data.service';
+
 import { videoInfo } from './types/videoInfo';
 
 @Component({
@@ -9,6 +11,6 @@ import { videoInfo } from './types/videoInfo';
 })
 export class AppComponent {
   randomVideo: videoInfo[] = [];
-  constructor(private sharedDataService: SharedDataService) {}
+  constructor() {}
   ngOnInit() {}
 }

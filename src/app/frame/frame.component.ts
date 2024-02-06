@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -14,14 +8,22 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./frame.component.scss'],
 })
 export class FrameComponent implements OnInit {
-  data: any = '';
+  data: string = '';
+  iframeTag: SafeHtml= '';
 
   constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer) {}
+
+  /**
+   * It subscribes to route parameters and retrieves data from the route state.
+   * The received data is then sanitized and stored in the component property.
+   *
+   * @returns {void}
+   **/
   ngOnInit() {
-    this.route.paramMap.subscribe((params) => {
+    this.route.queryParams.subscribe((params) => {
       const state = history.state;
       this.data = state?.data;
-      this.data = this.getSanitizedHtml();
+      this.iframeTag = this.getSanitizedHtml();
     });
   }
 

@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { SharedDataService } from '../../shared-data.service';
-import { videoInfo } from '../../types/videoInfo';
 import { Router } from '@angular/router';
+
+import { SharedDataService } from '../../shared-data.service';
+
+import { videoInfo } from '../../types/videoInfo';
 
 @Component({
   selector: 'app-video',
@@ -34,7 +36,8 @@ export class VideoComponent {
       state: {
         data: dataToSend,
       },
+      queryParams: { id: this.video.videoId },
     };
-    this.router.navigate([`/frame/${this.video.videoId}`], navigationExtras);
+    this.router.navigate(['/frame'], navigationExtras);
   }
 }

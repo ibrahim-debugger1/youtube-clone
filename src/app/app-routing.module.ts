@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { FrameComponent } from './frame/frame.component';
-import { AppComponent } from './app.component';
 import { VideosComponent } from './videos/videos.component';
 
 const routes: Routes = [
   { path: '', component: VideosComponent },
-  { path: 'search=/:word', component: VideosComponent },
-  {path: 'frame/:videoId', component: FrameComponent}
+  { path: 'search', component: VideosComponent },
+  { path: 'frame', component: FrameComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: "reload"})],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
