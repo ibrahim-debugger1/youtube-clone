@@ -9,6 +9,8 @@ import { videoInfo } from './types/videoInfo';
 import { viewCount } from './types/viewCount';
 import { thumbNailUrl } from './types/thumbNailUrl';
 
+import { environment } from 'src/environment';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,10 +19,11 @@ export class SharedDataService {
     searchInfo: Observable<any>;
   }>();
   searchFilters$ = this.searchFilter.asObservable();
-  key = 'AIzaSyCqEDYKR7WjfRHDkwiHbM12ENwUqE82iEY';
-  randomVideos = `https://www.googleapis.com/youtube/v3/search?key=${this.key}&part=snippet&maxResults=20`;
-  videoViewersCount = `https://www.googleapis.com/youtube/v3/videos?key=${this.key}&part=statistics,snippet,player&id=`;
-  channelThumbNail = `https://www.googleapis.com/youtube/v3/channels?key=${this.key}&part=snippet&id=`;
+  key = environment.key;
+  endpoint = environment.endpoint;
+  randomVideos = `${this.endpoint}/search?key=${this.key}&part=snippet&maxResults=20`;
+  videoViewersCount = `${this.endpoint}/videos?key=${this.key}&part=statistics,snippet,player&id=`;
+  channelThumbNail = `${this.endpoint}/channels?key=${this.key}&part=snippet&id=`;
   constructor(public http: HttpClient) {}
 
   /**
@@ -70,7 +73,7 @@ export class SharedDataService {
    *
    * @returns {Observable<thumbNailUrl>} An observable of the channel's thumbnail url and the channelId.
    **/
-  getChanelThumbNail(channelId: string): Observable<thumbNailUrl> {
+  getChanelThumbNail(channelId: string): Observable<thumbNailUrl[]> {
     return this.http
       .get<thumbNailUrl>(`${this.channelThumbNail}${channelId}`)
       .pipe(

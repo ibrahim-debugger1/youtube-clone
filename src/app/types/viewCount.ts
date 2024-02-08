@@ -1,5 +1,5 @@
 export interface viewCount {
-  viewCount: string;
-  videoId: string;
-  embedHtml: string;
+  viewCount?: string;
+  videoId?: string;
+  embedHtml?: string;
 }

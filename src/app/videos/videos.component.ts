@@ -37,23 +37,23 @@ export class VideosComponent {
   }
 
   getRandomVideos() {
-    this.search = false;
-    this.sharedDataService.getRandomVideos().subscribe((data) => {
-      this.randomVideos = data;
-      this.mergeData();
-    });
+    this.sharedDataService
+      .getRandomVideos()
+      .subscribe((data) => this.changeModeAndMergeData(data, false));
   }
 
   getSearchedVideos() {
     this.route.queryParams.subscribe((params) => {
       this.sharedDataService
         .getSearchedVideos(params['word'])
-        .subscribe((data) => {
-          this.search = true;
-          this.randomVideos = data;
-          this.mergeData();
-        });
+        .subscribe((data) => this.changeModeAndMergeData(data, true));
     });
+  }
+
+  changeModeAndMergeData(data: videoInfo[], mode: boolean) {
+    this.search = mode;
+    this.randomVideos = data;
+    this.mergeData();
   }
 
   /**
@@ -72,31 +72,35 @@ export class VideosComponent {
 
     this.sharedDataService
       .getVideoViewers(listOfVideoIds)
-      .subscribe((data: any) => {
-        this.randomVideos = this.randomVideos.map((video) => {
-          const viewInfo = data.find(
-            (data: viewCount) => data.videoId === video.videoId
-          );
-          return {
-            ...video,
-            viewCount: viewInfo ? viewInfo.viewCount : 0,
-            embedHtml: viewInfo ? viewInfo.embedHtml : '',
-          };
-        });
-      });
+      .subscribe((data: viewCount[]) => this.addCountAndIframe(data));
 
     this.sharedDataService
       .getChanelThumbNail(listOfChannelIds)
-      .subscribe((data: any) => {
-        this.randomVideos = this.randomVideos.map((video) => {
-          const viewInfo = data.find(
-            (data: thumbNailUrl) => data.channelId === video.channelId
-          );
-          return {
-            ...video,
-            channelPic: viewInfo ? viewInfo.thumbNailUrl : '',
-          };
-        });
-      });
+      .subscribe((data: thumbNailUrl[]) => this.addChannelPic(data));
+  }
+
+  addCountAndIframe(data: any) {
+    this.randomVideos = this.randomVideos.map((video) => {
+      const viewInfo = data.find(
+        (data: viewCount) => data.videoId === video.videoId
+      );
+      return {
+        ...video,
+        viewCount: viewInfo ? viewInfo.viewCount : 0,
+        embedHtml: viewInfo ? viewInfo.embedHtml : '',
+      };
+    });
+  }
+
+  addChannelPic(data: any) {
+    this.randomVideos = this.randomVideos.map((video) => {
+      const viewInfo = data.find(
+        (data: thumbNailUrl) => data.channelId === video.channelId
+      );
+      return {
+        ...video,
+        channelPic: viewInfo ? viewInfo.thumbNailUrl : '',
+      };
+    });
   }
 }

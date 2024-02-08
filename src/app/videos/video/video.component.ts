@@ -18,10 +18,13 @@ export class VideoComponent {
   @Input() search!: boolean;
   constructor(
     public sharedDataService: SharedDataService,
-    private router: Router
+    public router: Router
   ) {}
   ngOnInit() {
-    this.numberOfViewers = parseInt(this.video.viewCount, 10);
+    this.numberOfViewers = parseInt(this.video.viewCount || '0', 10);
+    if (isNaN(parseInt(this.video.viewCount || '', 10))) {
+      this.numberOfViewers = 0;
+    }
   }
 
   /**

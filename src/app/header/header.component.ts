@@ -23,8 +23,8 @@ export class HeaderComponent {
   searchedData: videoInfo[] = [];
   hideList: boolean = false;
   constructor(
-    private sharedDataService: SharedDataService,
-    private location: Location,
+    public sharedDataService: SharedDataService,
+    public location: Location,
     public router: Router
   ) {}
 
@@ -55,14 +55,16 @@ export class HeaderComponent {
       this.hideList = false;
       this.sharedDataService
         .getSearchedVideos(this.searchQuery)
-        .subscribe((data) => {
-          this.searchedData = [];
-          for (let i = 0; i < 5; i++) {
-            this.searchedData.push(data[i]);
-          }
-        });
+        .subscribe((data) => this.fillSuggestionList(data));
     } else {
       this.hideList = true;
+    }
+  }
+
+  fillSuggestionList(data: videoInfo[]) {
+    this.searchedData = [];
+    for (let i = 0; i < Math.min(data.length, 5); i++) {
+      this.searchedData.push(data[i]);
     }
   }
 
@@ -73,10 +75,12 @@ export class HeaderComponent {
    * @returns {void} This method does not return a value directly.
    *
    **/
-  searchVidoes() {
+  searchVideos() {
     this.hideList = true;
     if (this.searchQuery != '') {
-      this.router.navigate(['/search'], {queryParams : { word: this.searchQuery}});
+      this.router.navigate(['/search'], {
+        queryParams: { word: this.searchQuery },
+      });
     }
   }
 
@@ -90,8 +94,7 @@ export class HeaderComponent {
    **/
   Home() {
     this.hideList = true;
-    this.location.go('/');
-    window.location.reload();
+    this.router.navigate(['']);
   }
 
   /**
@@ -105,16 +108,18 @@ export class HeaderComponent {
     this.hideList = false;
     this.sharedDataService
       .getVideoViewers(videoId)
-      .subscribe((data: viewCount[]) => {
-        this.hideList = true;
-        const dataToSend = data[0].embedHtml;
-        const navigationExtras = {
-          state: {
-            data: dataToSend,
-          },
-          queryParams: { id: videoId },
-        };
-        this.router.navigate(['frame'], navigationExtras);
-      });
+      .subscribe((data: viewCount[]) => this.openIframe(data, videoId));
+  }
+
+  openIframe(data: viewCount[], videoId: string) {
+    this.hideList = true;
+    const dataToSend = data[0].embedHtml;
+    const navigationExtras = {
+      state: {
+        data: dataToSend,
+      },
+      queryParams: { id: videoId },
+    };
+    this.router.navigate(['frame'], navigationExtras);
   }
 }

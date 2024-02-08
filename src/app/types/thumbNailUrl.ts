@@ -1,4 +1,4 @@
 export interface thumbNailUrl {
-  thumbNailUrl: string;
-  channelId: string;
+  thumbNailUrl?: string;
+  channelId?: string;
 }

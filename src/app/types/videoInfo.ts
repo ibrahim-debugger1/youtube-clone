@@ -5,7 +5,7 @@ export interface videoInfo {
   thumbnailsUrl: string;
   videoTitle: string;
   channelTitle: string;
-  viewCount: string;
-  channelPic: string;
-  embedHtml: string;
+  viewCount?: string;
+  channelPic?: string;
+  embedHtml?: string;
 }

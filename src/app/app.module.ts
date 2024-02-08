@@ -40,7 +40,7 @@ import { AppRoutingModule } from './app-routing.module';
     MatAutocompleteModule,
     ReactiveFormsModule,
   ],
-  providers: [SharedDataService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

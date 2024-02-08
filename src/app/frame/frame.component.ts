@@ -9,9 +9,9 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class FrameComponent implements OnInit {
   data: string = '';
-  iframeTag: SafeHtml= '';
+  iframeTag: SafeHtml = '';
 
-  constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer) {}
+  constructor(public route: ActivatedRoute, public sanitizer: DomSanitizer) {}
 
   /**
    * It subscribes to route parameters and retrieves data from the route state.
@@ -20,11 +20,13 @@ export class FrameComponent implements OnInit {
    * @returns {void}
    **/
   ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
-      const state = history.state;
-      this.data = state?.data;
-      this.iframeTag = this.getSanitizedHtml();
-    });
+    this.route.queryParams.subscribe((params) => this.getSafeHtmlIframe());
+  }
+
+  getSafeHtmlIframe() {
+    const state = history.state;
+    this.data = state?.data;
+    this.iframeTag = this.getSanitizedHtml();
   }
 
   /**
