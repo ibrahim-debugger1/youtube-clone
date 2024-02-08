@@ -1,0 +1,18 @@
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.search{
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 86.3vw;
+}
+
+.body {
+  display: flex;
+  justify-content: flex-start;
+}

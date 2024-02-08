@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="logo">
+    <img [src]="IMAGE_PATHS['bars']" />
+    <img
+      class="logo-pic"
+      [src]="IMAGE_PATHS['logo']"
+      (click)="Home()"
+    />
+  </div>
+
+  <div class="search">
+    <div class="search-container">
+      <input
+        [(ngModel)]="searchQuery"
+        [formControl]="searchControl"
+        type="text"
+        placeholder="search"
+      />
+      <ul class="suggestion-list" *ngIf="searchedData.length > 0" [ngClass]="{'hide': hideList}">
+        <li *ngFor="let suggestion of searchedData" (click)="iframe(suggestion.videoId)">
+          {{ suggestion.videoTitle }}
+        </li>
+      </ul>
+    </div>
+    <img
+      class="search-icon"
+      [src]="IMAGE_PATHS['search']"
+      (click)="searchVideos()"
+    />
+  </div>
+  <div class="features">
+    <img [src]="IMAGE_PATHS['video']" alt="" />
+    <img [src]="IMAGE_PATHS['grid']" alt="" />
+    <img [src]="IMAGE_PATHS['bell']" alt="" />
+    <div class="email">O</div>
+  </div>
+</div>

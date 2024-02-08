@@ -1,0 +1,19 @@
+<div class="container" [class.search]="this.search" (click)="openIframe()">
+  <img src="{{ this.video.thumbnailsUrl }}" />
+  <div class="info-section">
+    <img class="chanel-icon" src="{{ this.video.channelPic }}" alt="" />
+    <div class="text-info">
+      <div class="video-name">
+        {{ this.video.videoTitle }}
+      </div>
+      <div class="chanel-name">{{ this.video.channelTitle }}</div>
+      <div class="view-posted-info">
+        <div class="views-number">
+          {{ this.numberOfViewers | numberFormat }}
+        </div>
+        <div class="posted-before">{{ this.video.publishedAt | dateDifference }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
